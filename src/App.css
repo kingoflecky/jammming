@@ -61,6 +61,8 @@ h1:hover {
 
 .playlist-card {
   padding: 1em;
+  display: flex;
+  flex-direction: column;
 }
 
 .render-artists {
@@ -77,4 +79,12 @@ h1:hover {
 
 #artist-name {
   float: left
+}
+
+#artist-list {
+  list-style-type: none;
+  padding: 0;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
 }
