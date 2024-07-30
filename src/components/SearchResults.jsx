@@ -10,7 +10,7 @@ const SearchResults = ({ apiResponse }) => {
   };
 
   useEffect(() => {
-    console.log(newPlaylist);
+   
   }, [newPlaylist]);
 
   if (!apiResponse) {
