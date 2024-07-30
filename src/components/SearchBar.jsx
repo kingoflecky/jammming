@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import SearchButton from "./SearchButton";
 import getArtists from "./getArtists";
 import SearchResults from "./SearchResults";
 import useDebounce from "../hooks/useDebounce";
+import Loading from "./Loading";
 
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState("");
@@ -53,10 +54,11 @@ const SearchBar = () => {
         onChange={useDebounce(getSearchQuery, debounceTimeout)}
       />
       <SearchButton />
-
-      <div className="results-card">
-        <SearchResults apiResponse={apiResponse} />
-      </div>
+      <Suspense fallback={<Loading />}>
+        <div className="results-card">
+          <SearchResults apiResponse={apiResponse} />
+        </div>
+      </Suspense>
     </>
   );
 };
