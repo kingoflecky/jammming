@@ -56,7 +56,7 @@ h1:hover {
   display: inline-flex;
   flex-direction: column;
   padding: 3em;
-  width: 25vw;
+  width: 40vw;
 }
 
 .playlist-card {
@@ -68,7 +68,7 @@ h1:hover {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  width: 20em;
+  width: 40em;
 }
 
 #artist-img {
