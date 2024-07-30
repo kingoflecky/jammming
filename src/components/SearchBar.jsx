@@ -1,17 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SearchButton from "./SearchButton";
 import getArtists from "./getArtists";
 import SearchResults from "./SearchResults";
+import useDebounce from "../hooks/useDebounce";
 
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState("");
   const [apiResponse, setApiResponse] = useState(null);
+  const debounceTimeout = 500;
+
+  // Use a ref to keep track of the current fetch
+  const fetchController = useRef(null);
 
   useEffect(() => {
     if (inputValue) {
       const fetchArtists = async () => {
-        const artists = await getArtists(inputValue);
-        setApiResponse(artists);
+        // Cancel the previous request if there is one
+        if (fetchController.current) {
+          fetchController.current.abort();
+        }
+        // Create a new AbortController
+        fetchController.current = new AbortController();
+
+        try {
+          const artists = await getArtists(inputValue);
+          setApiResponse(artists);
+        } catch (error) {
+          if (error.name === "AbortError") {
+            console.log("Fetch aborted");
+          } else {
+            console.error("Fetch error:", error);
+          }
+        }
       };
 
       fetchArtists();
@@ -30,7 +50,7 @@ const SearchBar = () => {
       <input
         id="search-box"
         placeholder="search for music here..."
-        onChange={getSearchQuery}
+        onChange={useDebounce(getSearchQuery, debounceTimeout)}
       />
       <SearchButton />
 
