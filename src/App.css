@@ -1,42 +1,80 @@
+* {
+  background-color: #191414;
+  color: #ffffff;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
+h1 {
   will-change: filter;
   transition: filter 300ms;
+  color: #1db954;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+h1:hover {
+  filter: drop-shadow(0 0 2em #1db954);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#search-box {
+  padding: 1em;
+  border-radius: 5em;
+  background-color: #ffffff;
+  color: #191414;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.input-box {
+  padding: 1em;
+  border-radius: 5em;
+  background-color: #ffffff;
+  color: #191414;
 }
 
-.card {
-  padding: 2em;
+.button {
+  color: #191414;
+  background-color: #1db954;
+  color: #ffffff;
+  border-radius: 5em;
+  padding: 0.6em;
+  margin: 0.5em;
+}
+.button:hover {
+  background-color: #1db954;
+  color: #ffffff;
+  transform: scale(1.05) perspective(1px);
 }
 
-.read-the-docs {
-  color: #888;
+.track-item {
+  display: flex;
+  justify-content: space-around;
+  width: 35em;
+}
+
+.search-results {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 3em;
+  width: 25vw;
+}
+
+.playlist-card {
+  padding: 1em;
+}
+
+.render-artists {
+  padding: 1em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 20em;
+}
+
+#artist-img {
+  max-height: 150px;
+}
+
+#artist-name {
+  float: left
 }
