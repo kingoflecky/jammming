@@ -1,6 +1,20 @@
+import { useEffect, useState } from "react";
+import AddToPlaylistBtn from "./AddToPlaylistBtn";
+import NewPlaylist from "./NewPlaylist";
+
 const SearchResults = ({ apiResponse }) => {
+  const [newPlaylist, setNewPlaylist] = useState([]);
+
+  const addArtistToPlaylist = (artistName) => {
+    setNewPlaylist((prevPlaylist) => [...prevPlaylist, artistName]);
+  };
+
+  useEffect(() => {
+    console.log(newPlaylist);
+  }, [newPlaylist]);
+
   if (!apiResponse) {
-    return;
+    return null;
   }
 
   return (
@@ -33,11 +47,17 @@ const SearchResults = ({ apiResponse }) => {
             <h5>
               Popularity: <br /> {artist.popularity}
             </h5>
+            <AddToPlaylistBtn
+              artistName={artist.name}
+              addArtist={addArtistToPlaylist}
+            />
           </div>
         ))
       ) : (
         <div>No artists found</div>
       )}
+
+      <NewPlaylist newPlaylist={newPlaylist} />
     </div>
   );
 };
