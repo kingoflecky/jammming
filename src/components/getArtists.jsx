@@ -1,30 +1,25 @@
-const getArtists = async (props) => {
+import makeApiRequest from "../hooks/makeApiRequest";
 
-  const clientId = import.meta.env.VITE_CLIENT_ID;
-  const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
-  const authToken = import.meta.env.VITE_ACCESS_TOKEN;
 
+const getArtists = async (query) => {
   const spotifyBaseUrl = "https://api.spotify.com";
   const searchEndpoint = "/v1/search";
-
-  const searchQuery = `?q=${props}`;
+  const searchQuery = `?q=${encodeURIComponent(query)}`;
   const typeQuery = "&type=artist";
-  const tokenSuffix = `&access_token=${authToken}`;
-
-  const urlToFetch = `${spotifyBaseUrl}${searchEndpoint}${searchQuery}${typeQuery}${tokenSuffix}`;
+  const urlToFetch = `${spotifyBaseUrl}${searchEndpoint}${searchQuery}${typeQuery}`;
 
   try {
-    const response = await fetch(urlToFetch);
-
-    if (response.ok) {
-      const jsonResponse = await response.json();
-      const artists = await jsonResponse.artists.items;
-      
-      console.log(artists)
+    const data = await makeApiRequest(urlToFetch);
+    if (data.artists && data.artists.items) {
+      const artists = data.artists.items;
+      console.log(artists);
       return artists;
+    } else {
+      throw new Error('No artist data found');
     }
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching artists:", error);
+    throw error;
   }
 };
 
